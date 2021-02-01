@@ -10,7 +10,7 @@ with open('car.jpg', 'rb') as img_file:
     img_str = base64.b64encode(img_file.read()).decode('utf-8')
 
 # Call the API
-API_URL = "https://gp2yi0uow3.execute-api.us-east-1.amazonaws.com/resnet"
+API_URL = "PUT YOUR API URL HERE"
 
 t1 = time()
 response = requests.post(API_URL, json=img_str)
