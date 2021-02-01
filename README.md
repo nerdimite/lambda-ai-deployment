@@ -106,7 +106,7 @@ To install libraries and upload our model files to EFS we need to create and use
     2. Select any subnet and make note of the availability zone of the subnet you are choosing
     3. Enable Auto-Assign Public IP
     4. Leave the remaining stuff in default and click Next.
-5. Changed storage to atleast 12 GB and click Next.
+5. Change storage to atleast 12 GB and click Next.
 6. Add an optional Name tag with the name that you want to give to your instance.
 7. In the security group section, choose "Create a new security group" and give it a name and description.
 8. Add a Custom TCP Rule with Port `2049` and Source `Anywhere`
