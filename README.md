@@ -173,7 +173,7 @@ After this, if you wish to deploy a second model, you need not go through the en
 2. Mount the EFS by running this command `sudo mount -t nfs4 fs-xxxxxx.efs.us-east-1.amazonaws.com:/ efs-mount` replace `fs-xxxxxx` with your EFS ID.
 3. Install additional libraries in `efs-mount/ml/lib` with `pip3 install <package> -t ./`.
 4. If you want to upload model files then upload them to `efs-mount/ml/model` via SCP or anyother method of your choice.
-5. Create a new lambda function and make the appropriate configurations and upload/write your code.
+5. Create a new lambda function and make the appropriate configurations (VPC, EFS, Memory and Timeout, Environment Variables) and upload/write your code.
 6. Create a new POST route in your API in API Gateway with your new lambda integrated.
 
 
