@@ -107,6 +107,8 @@ Metadata:
         - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
+        - 865e6273-65a0-468d-8262-d7eaad0435dd
+        - 865e6273-65a0-468d-8262-d7eaad0435dd
     1592589c-8824-4ea6-bcdb-d8ff44bb6af8:
       size:
         width: 60
@@ -134,6 +136,8 @@ Metadata:
       embeds:
         - 005ac934-bcd3-4110-b1fd-ea27af5c08cc
       iscontainedinside:
+        - 865e6273-65a0-468d-8262-d7eaad0435dd
+        - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
@@ -287,6 +291,8 @@ Metadata:
         - 0a3f370c-2e4a-4188-a2dc-34928fd7cacc
         - 0a3f370c-2e4a-4188-a2dc-34928fd7cacc
         - 0a3f370c-2e4a-4188-a2dc-34928fd7cacc
+        - 0a3f370c-2e4a-4188-a2dc-34928fd7cacc
+        - 0a3f370c-2e4a-4188-a2dc-34928fd7cacc
     c7c9fb80-7470-4b46-aaf1-5898dd14f4fd:
       source:
         id: 0a3f370c-2e4a-4188-a2dc-34928fd7cacc
@@ -304,6 +310,8 @@ Metadata:
       parent: 865e6273-65a0-468d-8262-d7eaad0435dd
       embeds: []
       iscontainedinside:
+        - 865e6273-65a0-468d-8262-d7eaad0435dd
+        - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
@@ -442,6 +450,8 @@ Metadata:
         - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
         - 865e6273-65a0-468d-8262-d7eaad0435dd
+        - 865e6273-65a0-468d-8262-d7eaad0435dd
+        - 865e6273-65a0-468d-8262-d7eaad0435dd
     8a15ae68-bf1d-445d-8a91-b203bc295dad:
       size:
         width: 60
@@ -534,6 +544,10 @@ Resources:
           FromPort: 2049
           ToPort: 2049
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 2049
+          ToPort: 2049
+          CidrIpv6: '::/0'
       Tags:
         - Key: Name
           Value: CF-InferenceSG
@@ -544,7 +558,7 @@ Resources:
     Type: 'AWS::EC2::Instance'
     Properties:
       KeyName: !Ref KeyName
-      ImageId: ami-0dc2d3e4c0f9ebd18
+      ImageId: ami-09e67e426f25ce0d7
       InstanceType: t3.medium
       NetworkInterfaces:
         - AssociatePublicIpAddress: 'true'
@@ -554,13 +568,23 @@ Resources:
             - !Ref InferenceSG
           SubnetId: !Ref PublicSubnet1
       BlockDeviceMappings:
-        - DeviceName: /dev/sdm
+        - DeviceName: /dev/sda1
           Ebs:
             DeleteOnTermination: 'true'
             VolumeSize: 20
       Tags:
         - Key: Name
           Value: CF-InferenceEC2
+      UserData:
+        'Fn::Base64': !Sub |
+          #!/bin/bash
+          cd ~
+          sudo apt-get update
+          sudo apt-get -y install git binutils
+          git clone https://github.com/aws/efs-utils
+          cd ~/efs-utils
+          ./build-deb.sh
+          sudo apt-get -y install ./build/amazon-efs-utils*deb
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 115db4ef-8298-444c-bf79-d3a566dd9dba
