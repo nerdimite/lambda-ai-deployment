@@ -4,6 +4,10 @@ AWS Lambda is a serverless compute service which allows us to execute code in re
 
 This repository is a part of [my workshop at CellStrat](https://www.meetup.com/Disrupt-4-0/events/275681532).
 
+## Update [13 July 2021]
+
+The VPC, EFS and EC2 resources can be created automatically using this [CloudFormation template](cloudformation-template/vpc-efs-ec2.yaml). The lambda function creation still has to be manual though as your code could vary depending on your model.
+
 ## Lambda AI Deployment - Cheat Sheet
 
 This is a cheat sheet of the steps followed in the workshop for the attendees to use as a reference in the future.
